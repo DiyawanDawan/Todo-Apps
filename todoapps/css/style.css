@@ -4,6 +4,47 @@
     box-sizing: border-box;
 }
 
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+.dark-mode .dropdown-container #darkModeToggle {
+    color: #ffffff;
+    background-color: #5a5a5a;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #6c6c6c;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+.dropdown-container:hover .dropdown-content {
+    display: block;
+}
+
+.dark-mode .wrapper .container, .dark-mode .wrapper, .dark-mode .list-item .item, .dark-mode .check-button, .dark-mode input[type=text], .dark-mode input[type=date], .dark-mode textarea, .dark-mode .btn-submit {
+    background-color: #5a5a5a;
+    color: #F5F1FF;
+    
+}
+
 html, body {
     font-family: Raleway, sans-serif;
     margin: 0;
@@ -24,13 +65,13 @@ header {
 }
 
 .wrapper .container {
-    width: 1024px;
     border-radius: 8px;
     margin: 16px;
-    background: #F8F9FA;
+    background: #e8e8e8;
     padding: 16px;
     flex-grow: 1;
-    height: fit-content;
+    height: auto; /* Allow the container to grow with the form */
+    width: 1024px;
 }
 
 
@@ -50,14 +91,13 @@ header {
 .item > .inner p {
     margin-top: 5px;
 }
-
 .form {
     display: flex;
-    padding: 16px;
     flex-direction: column;
-    height: 300px;
     border-radius: 16px;
+    padding: 16px;
 }
+
 
 .form-group {
     display: flex;
@@ -74,7 +114,7 @@ header {
     box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
 }
 
-input[type=text], input[type=date] {
+input[type=text], input[type=date], textarea {
     font-family: Raleway, sans-serif;
     background: #F5F1FF;
     border: 2px solid #9475EA;
@@ -103,7 +143,7 @@ input[type=text], input[type=date] {
     color: white;
 }
 
-input[type=text], input[type=date], .btn-submit:focus {
+input[type=text], input[type=date], textarea, .btn-submit:focus {
     outline: none;
 }
 
