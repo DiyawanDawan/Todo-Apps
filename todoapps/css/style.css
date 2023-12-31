@@ -3,15 +3,22 @@
 * {
     box-sizing: border-box;
 }
-
+.dark-mode body {
+    background-color: #5a5a5a;
+    color: #ffffff;
+}
 
 .dropdown-container {
     position: relative;
     display: inline-block;
 }
-.dark-mode .dropdown-container #darkModeToggle {
+.dark-mode .dropdown-container #darkModeToggle, .dark-mode .wrapper .container, .dark-mode .wrapper, .dark-mode .list-item .item, .dark-mode .check-button, .dark-mode input[type=text], .dark-mode input[type=date], .dark-mode textarea, .dark-mode .btn-submit {
     color: #ffffff;
     background-color: #5a5a5a;
+}
+.dark-mode a {
+    background-color: #5a5a5a;
+    color: #9475EA;
 }
 .dropdown-content {
     display: none;
@@ -39,11 +46,6 @@
     display: block;
 }
 
-.dark-mode .wrapper .container, .dark-mode .wrapper, .dark-mode .list-item .item, .dark-mode .check-button, .dark-mode input[type=text], .dark-mode input[type=date], .dark-mode textarea, .dark-mode .btn-submit {
-    background-color: #5a5a5a;
-    color: #F5F1FF;
-    
-}
 
 html, body {
     font-family: Raleway, sans-serif;
@@ -89,6 +91,12 @@ header {
 }
 
 .item > .inner p {
+    margin-top: 5px;
+}
+
+.inner .link-active {
+    font-size: 1.5rem;
+    text-decoration: none;
     margin-top: 5px;
 }
 .form {
