@@ -58,8 +58,15 @@ header {
     background: #5F30E2;
     padding: 16px;
     color: white;
+    margin: 0 auto;
 }
-
+.header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 3rem;
+    flex-wrap: 1;
+}
 .wrapper {
     display: flex;
     flex-direction: column;

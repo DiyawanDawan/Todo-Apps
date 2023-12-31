@@ -1,5 +1,6 @@
 const todos = [];
 const RENDER_EVENT = 'renser-todo'
+const STORAGE_KEY = 'TODO_APPS';
 
 document.addEventListener('DOMContentLoaded', function () {
     const darkModeToggle = document.getElementById('darkModeToggle');
@@ -48,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
             darkModeToggle.checked = true;
         }
     });
+    if (isStorageExist()) {
+        loadDataFromStorage();
+      }
 });
 
 
@@ -73,6 +77,7 @@ function addTodo() {
     todos.push(todoObject);
 
     document.dispatchEvent(new Event(RENDER_EVENT));
+    saveData();
 }
 
 function addTaskToCompleted(todoId){
@@ -81,6 +86,7 @@ function addTaskToCompleted(todoId){
     if (todoId == null)return;
     todoTarget.isComplete = true;
     document.dispatchEvent(new Event(RENDER_EVENT))
+    saveData();
 }
 
 function fineTodo(todoId) {
@@ -136,9 +142,41 @@ function makeTodo(todoObject) {
         const trashButton = document.createElement('button'); // Fix typo here
         trashButton.classList.add('trash-button');
 
-        trashButton.addEventListener('click', () => {
-            removeTaskFromCompleted(todoObject.id);
-        });
+        trashButton.addEventListener('click', async () => {
+            const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false
+            });
+          
+            const result = await swalWithBootstrapButtons.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, delete it!',
+              cancelButtonText: 'No, cancel!',
+              reverseButtons: true
+            });
+          
+            if (result.isConfirmed) {
+              removeTaskFromCompleted(todoObject.id);
+              swalWithBootstrapButtons.fire({
+                title: 'Deleted!',
+                text: 'Your file has been deleted.',
+                icon: 'success'
+              });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              swalWithBootstrapButtons.fire({
+                title: 'Cancelled',
+                text: 'Your imaginary file is safe :)',
+                icon: 'error'
+              });
+            }
+          });
+          
 
         container.append(undoButton, trashButton);
     } else {
@@ -161,6 +199,7 @@ function removeTaskFromCompleted(todoId) {
     if (todoTarget === -1 ) return;
     todos.splice(todoTarget, 1)
         document.dispatchEvent(new Event(RENDER_EVENT));
+        saveData();
 };
 
 
@@ -169,11 +208,40 @@ function undoTaskFromCompleted(todoId) {
     if(todoTarget == null) return;
     todoTarget.isComplete=false;
     document.dispatchEvent(new Event(RENDER_EVENT));
+    saveData();
+}
+
+function isStorageExist() {
+    if (typeof (Storage) == undefined) {
+        alert('Broser Tidak Mendukung LocalStorage')
+        return false;
+    };
+    return true;
+}
+
+function saveData() {
+    if (isStorageExist()) {
+        const parsed = JSON.stringify(todos);
+        localStorage.setItem(STORAGE_KEY, parsed);
+        document.dispatchEvent(new Event(RENDER_EVENT))
+    }
+}
+
+function loadDataFromStorage() {
+    const serializedData = localStorage.getItem(STORAGE_KEY);
+    let data = JSON.parse(serializedData);
+
+    if (data !== null) {
+        for (const todo of data) {
+            todos.push(todo)
+        }
+    }
+    document.dispatchEvent(new Event(RENDER_EVENT))
 }
 
 document.addEventListener(RENDER_EVENT, function() {
     console.log(todos);
-
+    console.log(localStorage.getItem(STORAGE_KEY));
     const uncompletedTODOList = document.getElementById('todos');
     uncompletedTODOList.innerHTML = '';
 

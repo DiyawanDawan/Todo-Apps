@@ -6,11 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manajmen Time</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
   <header>
+    <div class="header-item">
+    <nav>
+      <h1>Todo List</h1>
+    </nav>
     <div class="dropdown-container">
       <button id="darkModeToggle">Dark Mode</button>
       <div class="dropdown-content" id="darkModeDropdown">
@@ -18,9 +23,7 @@
         <button id="darkModeOff">Light</button>
       </div>
     </div>
-    <nav>
-      <h1>Todo List</h1>
-    </nav>
+    </div>
   </header>
 
   <div class="wrapper">
@@ -56,6 +59,7 @@
       <div class="list-item" id="complated-todos"></div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/script.js"></script>
 </body>
 
